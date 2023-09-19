@@ -16,6 +16,10 @@ app.get('/', (request, response) => {
 });
 
 app.get('/users', db.getUsers);
+app.get('/chars', db.getCharacters);
+app.get('/chars/:nome', (req, res) => {
+  db.getOneCharacter(req, res, req.params.nome);
+});
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
