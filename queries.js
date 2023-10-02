@@ -8,7 +8,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-const getUsers = (request, response) => {
+const getJogadores = (request, response) => {
   pool.query('SELECT * FROM jogadores ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error;
@@ -17,7 +17,16 @@ const getUsers = (request, response) => {
   });
 };
 
-const getCharacters = (request, response) => {
+const getReliquias = (request, response) => {
+  pool.query('SELECT * FROM reliquias ORDER BY nome', (error, results) => {
+    if (error) {
+      throw error;
+    }
+    response.status(200).json(results.rows);
+  });
+};
+
+const getPersonagens = (request, response) => {
   pool.query('SELECT * FROM personagem', (error, results) => {
     if (error) {
       throw error;
@@ -30,7 +39,7 @@ const getCharacters = (request, response) => {
   });
 };
 
-const getOneCharacter = (request, response, nome) => {
+const getOnePersonagem = (request, response, nome) => {
   pool.query(
     'SELECT * FROM personagem where nome = $1',
     [nome],
@@ -47,4 +56,9 @@ const getOneCharacter = (request, response, nome) => {
   );
 };
 
-module.exports = { getUsers, getCharacters, getOneCharacter };
+module.exports = {
+  getJogadores,
+  getPersonagens,
+  getOnePersonagem,
+  getReliquias,
+};

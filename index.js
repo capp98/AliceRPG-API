@@ -18,10 +18,11 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' });
 });
 
-app.get('/users', db.getUsers);
-app.get('/chars', db.getCharacters);
+app.get('/users', db.getJogadores);
+app.get('/chars', db.getPersonagens);
+app.get('/reliquias', db.getReliquias);
 app.get('/chars/:nome', (req, res) => {
-  db.getOneCharacter(req, res, req.params.nome);
+  db.getOnePersonagem(req, res, req.params.nome);
 });
 
 app.listen(port, () => {
