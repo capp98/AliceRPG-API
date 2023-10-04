@@ -24,6 +24,9 @@ app.get('/reliquias', db.getReliquias);
 app.get('/chars/:nome', (req, res) => {
   db.getOnePersonagem(req, res, req.params.nome);
 });
+app.get('/reliquias/:personagem_id', (req, res) => {
+  db.getReliquiasPersonagem(req, res, req.params.personagem_id);
+});
 app.get('/diario/:personagem_id', (req, res) => {
   db.getDiarios(req, res, req.params.personagem_id);
 });

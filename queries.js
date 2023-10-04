@@ -56,6 +56,23 @@ const getOnePersonagem = (request, response, nome) => {
   );
 };
 
+const getReliquiasPersonagem = (request, response, personagem_id) => {
+  pool.query(
+    'select * from reliquias where personagem_id = $1 order by nome',
+    [personagem_id],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      if (results.rows.length === 0) {
+        response.status(404).send('<h1>Não encontrado</h1>');
+      } else {
+        response.status(200).json(results.rows);
+      }
+    }
+  );
+};
+
 const getDiarios = (request, response, personagem_id) => {
   pool.query(
     'select * from diarios where personagem_id = $1',
@@ -79,4 +96,5 @@ module.exports = {
   getOnePersonagem,
   getReliquias,
   getDiarios,
+  getReliquiasPersonagem,
 };
